@@ -6,9 +6,9 @@
 *.ear
 
 # libraries #
-!libs/*
+!libs/
 
 # project files #
-.idea/*
+.idea/
 
 src/com/nguyenmp/grawler/Tester.java
