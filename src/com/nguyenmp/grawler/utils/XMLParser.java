@@ -1,4 +1,4 @@
-package com.nguyenmp.grawler.com.nguyenmp.grawler.utils;
+package com.nguyenmp.grawler.utils;
 
 import org.ccil.cowan.tagsoup.Parser;
 import org.w3c.dom.Document;
@@ -19,17 +19,17 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 public class XMLParser {
-	
+
 	/**
 	 * returns a document of formatted xml stuff.
-	 * uses tagsoup to process through bad xhtml. 
+	 * uses tagsoup to process through bad xhtml.
 	 * @param xmlString A string that should be XML.
 	 * @return A Document transformed from parsing the string which should be XML.
 	 * @throws ParsingException if the xml string could not be parsed
 	 */
 	public static Document getDocumentFromString(String xmlString) throws ParsingException {
 		Document doc;
-		
+
 		try {
 			XMLReader reader = new Parser();
 			reader.setFeature(Parser.namespacesFeature, false);
@@ -58,7 +58,7 @@ public class XMLParser {
 
 		return doc;
 	}
-	
+
 	/**
 	 * returns the first child with the specified id.  null if no child have id
 	 * @param root the root element
@@ -66,22 +66,22 @@ public class XMLParser {
 	 * @param attributeValue the value of the attribute
 	 * @return the Element that has the specified value for the specified attribute.
 	 */
-	public static Element getChildFromAttribute(Element root, String attributeName, String attributeValue) {	
+	public static Element getChildFromAttribute(Element root, String attributeName, String attributeValue) {
 		NodeList list = root.getChildNodes();
 		for (int i = 0; i < list.getLength(); i++) {
 			Node child = list.item(i);
-			
-			if (child.getNodeType() == Node.ELEMENT_NODE) {				
+
+			if (child.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element) child;
 				if (element.getAttribute(attributeName).equals(attributeValue)) {
 					return element;
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * returns the first child with the specified name.  null if no child have id
 	 * @param element the element to search
@@ -90,7 +90,7 @@ public class XMLParser {
 	 */
 	public static Node getChildFromName(Element element, String name) {
 		NodeList list = element.getChildNodes();
-		
+
 		if (list != null && name != null) {
 //			System.out.println("Searching for " + name + " in " + element);
 			for (int i = 0; i < list.getLength(); i++) {
@@ -102,12 +102,12 @@ public class XMLParser {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Converts the node and it's children to an XML String
 	 * @param node The node to convert.
 	 * @return The XML String
-	 * @throws TransformerException when it is not possible to create a Transformer 
+	 * @throws javax.xml.transform.TransformerException when it is not possible to create a Transformer
 	 * instance or if an unrecoverable error occurs during the course of the transformation
 	 */
 	static String nodeToString(Node node) throws TransformerException {
@@ -116,14 +116,14 @@ public class XMLParser {
 		Transformer trans = transfac.newTransformer();
 		trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 		trans.setOutputProperty(OutputKeys.INDENT, "yes");
-		
+
 		// Print the DOM node
 
 		StringWriter sw = new StringWriter();
 		StreamResult result = new StreamResult(sw);
 		DOMSource source = new DOMSource(node);
 		trans.transform(source, result);
-		
+
 		//return as string
 		String xmlString = sw.toString();
 		return xmlString;
