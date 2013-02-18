@@ -1,0 +1,11 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# libraries #
+!libs/*
+
+src/com/nguyenmp/grawler/Tester.java
