@@ -8,4 +8,7 @@
 # libraries #
 !libs/*
 
+# project files #
+.idea/*
+
 src/com/nguyenmp/grawler/Tester.java
