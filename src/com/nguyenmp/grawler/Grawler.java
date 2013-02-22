@@ -86,7 +86,7 @@ public class Grawler {
 		
 		
 		//If we got expected response, then return the client
-		if (responseString.contains("<h2>Object moved to <a href=\"%2fgold%2fAlertMessage.aspx\">here</a>.</h2>")) {
+		if (responseString.contains("<h2>Object moved to <a href=\"/gold/AlertMessage.aspx\">here</a>.</h2>")) {
 			CookieStore cookieStore = (CookieStore) context.getAttribute(ClientContext.COOKIE_STORE);
 			List<Cookie> cookies = cookieStore.getCookies();
 			GoldSession session = new GoldSession(cookies.toArray(new Cookie[cookies.size()]));

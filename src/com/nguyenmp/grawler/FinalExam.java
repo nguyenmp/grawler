@@ -1,7 +1,6 @@
 package com.nguyenmp.grawler;
 
-
-import com.nguyenmp.grawler.com.nguyenmp.grawler.utils.Utils;
+import com.nguyenmp.grawler.utils.Utils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;

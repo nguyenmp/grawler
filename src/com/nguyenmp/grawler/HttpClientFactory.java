@@ -79,7 +79,7 @@ public class HttpClientFactory {
 			} else {
 				//TODO: Load the keystore relative and within the jar
 				KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-				FileInputStream inStream = new FileInputStream(new File(".\\assets\\GrawlerKeyStore"));
+				FileInputStream inStream = new FileInputStream(new File("./assets/GrawlerKeystore"));
 				trustStore.load(inStream, "password".toCharArray());
 	
 				SSLSocketFactory socketFactory = new SSLSocketFactory(trustStore);

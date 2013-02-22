@@ -1,6 +1,6 @@
 package com.nguyenmp.grawler;
 
-import com.nguyenmp.grawler.com.nguyenmp.grawler.utils.Utils;
+import com.nguyenmp.grawler.utils.Utils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -66,11 +66,11 @@ public class BasicFindCourses {
 	private static Course[] getCourseList(String html) {
 		List<Course> courses = new ArrayList<Course>();
 		
-		int start = html.indexOf("<table id=\"ctl00_pageContent_CourseList\"");
-		int end = html.indexOf("\"ctl00$pageContent$modifySearchBottomButton\" id=\"ctl00_pageContent_modifySearchBottomButton\" class=\"fr\"", start);
+		int start = html.indexOf("<table id=\"pageContent_CourseList\"");
+		int end = html.indexOf("\"ctl00$pageContent$modifySearchBottomButton\" id=\"pageContent_modifySearchBottomButton\" class=\"fr\"", start);
 		
 		String courseListSubstring = html.substring(start, end);
-		int courseSubstringStart = 0, courseSubstringEnd = 0;
+		int courseSubstringStart, courseSubstringEnd = 0;
 		
 		while ((courseSubstringStart = courseListSubstring.indexOf("<table Class=\"datatable\"", courseSubstringEnd)) != -1) {
 			courseSubstringEnd = courseListSubstring.indexOf("</table>\r\n" +
@@ -94,7 +94,7 @@ public class BasicFindCourses {
 		
 		//Parse course info parameter link
 		start = courseSubstring.indexOf("<div class=\"fl\" style=\"font-size:11px;\"><a id=\"", end) + "<div class=\"fl\" style=\"font-size:11px;\"><a id=\"".length();
-		end = courseSubstring.indexOf("\" href=\"javascript:__doPostBack('", start);
+		end = courseSubstring.indexOf("href=\"javascript:__doPostBack(", start);
 		String courseInfo = courseSubstring.substring(start, end);
 		
 		//Parse units count
@@ -295,7 +295,6 @@ public class BasicFindCourses {
 		//Narrow down our search area
 		int quartersStart = getResponseString.indexOf(mQuarterOptionsDelimiterStart) + mQuarterOptionsDelimiterStart.length();
 		int quartersEnd = getResponseString.indexOf(mQuarterOptionsDelimiterEnd, quartersStart);
-		System.out.println(getResponseString);
 		String quartersSubString = getResponseString.substring(quartersStart, quartersEnd);
 		
 		int quarterStart, quarterEnd = 0;
