@@ -1,0 +1,62 @@
+<project default="compile">
+
+  <!-- build.xml for lab06, S13, CS56
+       author: Phill Conrad
+       Note: for this lab, you should not need to edit this file -->
+   
+   <property environment="env"/> <!-- load the environment variables --> 
+   <property name="packagePrefix" value="com.nguyenmp.grawler.tests" />
+   <property name="mainClass" value="Test" />
+   <path id="project.class.path">
+         <pathelement location="build"/>
+         <pathelement location="libs/commons-codec-1.6.jar"/>
+         <pathelement location="libs/commons-logging-1.1.1.jar"/>
+         <pathelement location="libs/fluent-hc-4.2.1.jar"/>
+         <pathelement location="libs/httpclient-4.2.1.jar"/>
+         <pathelement location="libs/httpclient-cache-4.2.1.jar"/>
+         <pathelement location="libs/httpcore-4.2.1.jar"/>
+         <pathelement location="libs/httpmime-4.2.1.jar"/>
+         <pathelement location="libs/tagsoup-1.2.1.jar"/>
+   </path>   
+
+  <target name="compile" description="compile my code">
+    <mkdir dir="build" />
+    <javac srcdir="src" destdir="build" debug="true" debuglevel="lines,source" 
+	   includeantruntime="false" >
+      <classpath refid="project.class.path" />
+    </javac>
+  </target>
+
+  <target name="run" depends="compile" description="runs the demo java file" >
+    <java fork="true" classname="${packagePrefix}.${mainClass}" >
+      <arg value="${arg0}" />
+      <arg value="${arg1}" />
+      <classpath refid="project.class.path" />
+    </java>
+  </target>
+
+  <target name="test" depends="compile" description="run junit tests">
+    <junit haltonerror="no" haltonfailure="no">
+      <classpath refid="project.class.path" />
+
+      <batchtest fork="yes">
+        <fileset dir="src">
+          <!-- this will pick up every class with a name ending in Test -->
+          <include name="**/*Test.java"/>
+        </fileset>
+      </batchtest>
+
+      <formatter type="plain" usefile="false" /> 
+       
+    </junit>
+  </target>
+
+  <target name="clean" description="delete unnecessary files and directories">
+    <delete dir="build" failonerror="false" verbose="true" />
+    <mkdir dir="build" />
+    <delete dir="javadoc" failonerror="false" verbose="true" />  <!-- the local copy -->
+    <mkdir dir="javadoc" />
+  </target>
+
+
+</project>
