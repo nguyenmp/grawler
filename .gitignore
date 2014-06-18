@@ -4,6 +4,11 @@
 *.jar
 *.war
 *.ear
+*.html
+
+bin/
+dist/
+javadoc/
 
 # libraries #
 !libs/*.jar
@@ -13,3 +18,5 @@
 *.iml
 
 src/com/nguyenmp/grawler/Tester.java
+
+*Credentials.java
