@@ -45,7 +45,7 @@
 
             <batchtest fork="yes">
                 <fileset dir="src">
-                    <!-- this will pick up every class with a name ending in Test -->
+                    <!-- this will pick up every class with a name ending in GrawlerTest -->
                     <include name="**/*Test.java"/>
                 </fileset>
             </batchtest>
