@@ -17,6 +17,8 @@
          <pathelement location="libs/httpcore-4.2.1.jar"/>
          <pathelement location="libs/httpmime-4.2.1.jar"/>
          <pathelement location="libs/tagsoup-1.2.1.jar"/>
+         <pathelement location="libs/junit-4.11.jar"/>
+         <pathelement location="libs/hamcrest-all-1.3.jar"/>
    </path>   
 
   <target name="compile" description="compile my code">
