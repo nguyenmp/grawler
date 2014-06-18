@@ -1,17 +1,13 @@
 package com.nguyenmp.grawler;
 
+import com.nguyenmp.grawler.utils.HttpClientFactory;
+import com.nguyenmp.grawler.utils.HttpContextFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
-import java.util.Scanner;
 
 public class StudentSchedule {
 	

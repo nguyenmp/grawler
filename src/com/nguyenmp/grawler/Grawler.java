@@ -1,5 +1,7 @@
 package com.nguyenmp.grawler;
 
+import com.nguyenmp.grawler.utils.HttpClientFactory;
+import com.nguyenmp.grawler.utils.HttpContextFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -27,7 +29,7 @@ public class Grawler {
 	 * @param password the password corresponding to the UCSBNetID
 	 * @return the GoldSession corresponding to a successful log in event or <code>null</code> 
 	 * if the authentication fails.
-	 * @throws HttpClientFactory.SSHException If the SSL connection manager could not be generated
+	 * @throws com.nguyenmp.grawler.utils.HttpClientFactory.SSHException If the SSL connection manager could not be generated
 	 * @throws IOException if an io exception or some HTTP error occurd
 	 */
 	public static GoldSession login(String username, String password) throws HttpClientFactory.SSHException, IOException {

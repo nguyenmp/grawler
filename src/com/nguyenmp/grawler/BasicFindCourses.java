@@ -1,5 +1,7 @@
 package com.nguyenmp.grawler;
 
+import com.nguyenmp.grawler.utils.HttpClientFactory;
+import com.nguyenmp.grawler.utils.HttpContextFactory;
 import com.nguyenmp.grawler.utils.Utils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

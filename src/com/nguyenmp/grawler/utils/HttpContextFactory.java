@@ -1,5 +1,6 @@
-package com.nguyenmp.grawler;
+package com.nguyenmp.grawler.utils;
 
+import com.nguyenmp.grawler.GoldSession;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.cookie.Cookie;

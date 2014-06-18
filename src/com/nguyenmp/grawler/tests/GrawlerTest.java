@@ -2,6 +2,7 @@ package com.nguyenmp.grawler.tests;
 
 import java.io.IOException;
 import com.nguyenmp.grawler.*;
+import com.nguyenmp.grawler.utils.HttpClientFactory;
 import org.junit.Test;
 
 public class GrawlerTest {

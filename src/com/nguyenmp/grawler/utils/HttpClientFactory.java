@@ -1,4 +1,4 @@
-package com.nguyenmp.grawler;
+package com.nguyenmp.grawler.utils;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ClientConnectionManager;
