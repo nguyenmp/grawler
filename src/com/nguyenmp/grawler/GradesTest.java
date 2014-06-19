@@ -28,11 +28,11 @@ public class GradesTest {
         assertNotNull(result);
 
         // The String contains "ATt Unit"
-        assertNotEquals(result.indexOf("ATt Unit"), -1);
+        assertNotEquals(result.indexOf("Att Unit"), -1);
 
-        // The String contains more than one instance of "ATt Unit"
+        // The String contains more than one instance of "Att Unit"
         // This test case would probably fail on a new student
-        assertNotEquals(result.indexOf("ATt Unit"), result.lastIndexOf("ATt Unit"));
+        assertNotEquals(result.indexOf("Att Unit"), result.lastIndexOf("Att Unit"));
     }
 
     @Test
@@ -43,9 +43,9 @@ public class GradesTest {
         assertNotNull(result);
 
         // The String contains "ATt Unit"
-        assertNotEquals(result.indexOf("ATt Unit"), -1);
+        assertNotEquals(result.indexOf("Att Unit"), -1);
 
         // The String contains only one instance of "ATt Unit"
-        assertEquals(result.indexOf("ATt Unit"), result.lastIndexOf("ATt Unit"));
+        assertEquals(result.indexOf("Att Unit"), result.lastIndexOf("Att Unit"));
     }
 }
