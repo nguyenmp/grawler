@@ -3,6 +3,32 @@ grawler
 
 A command line client for browsing UCSB's Gaucho-On-Line-Data (GOLD) website
 
+
+Setting Up
+=======
+
+First, you'll need a couple of things.  I tested the code with Java JDK 1.7 and ANT 1.9.2.  Most any version should be fine as both tools are very backwards compatable.
+
+1. Download and install a recent JDK version
+
+2. Download and install ANT
+
+3. Download grawler
+
+		git clone https://github.com/nguyenmp/grawler
+
+4. Load in your credentials
+
+		cd grawler
+		Make a copy of src/com/nguyenmp/grawler/Credentials.java.template and rename it Credentials.java
+		Edit Credentials.java so that username and password are string literals of those values
+		USERNAME = "mynamehere"
+
+5. Test to make sure it's all good
+
+		cd grawler
+		ant test
+
 How to Log In
 =======
 
