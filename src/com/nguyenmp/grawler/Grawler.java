@@ -79,6 +79,7 @@ public class Grawler {
 			List<Cookie> cookies = cookieStore.getCookies();
 			GoldSession session = new GoldSession(cookies.toArray(new Cookie[cookies.size()]));
 			session.setViewState(viewState);
+            session.startHeartbeat();
 			return session;
 		}
 
