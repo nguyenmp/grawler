@@ -59,8 +59,9 @@
         <delete dir="build" failonerror="false" verbose="true"/>
         <mkdir dir="build"/>
         <delete dir="javadoc" failonerror="false" verbose="true"/>
-        <!-- the local copy -->
         <mkdir dir="javadoc"/>
+        <delete dir="dist" failonerror="false" verbose="true"/>
+        <mkdir dir="dist"/>
     </target>
 
     <target name="javadoc" depends="compile" description="generate Javadoc documentation">

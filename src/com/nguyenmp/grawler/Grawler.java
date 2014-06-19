@@ -2,6 +2,7 @@ package com.nguyenmp.grawler;
 
 import com.nguyenmp.grawler.utils.HttpClientFactory;
 import com.nguyenmp.grawler.utils.HttpContextFactory;
+import com.nguyenmp.grawler.utils.Utils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -40,14 +41,7 @@ public class Grawler {
 		//Get the login page's source
 		HttpGet get = new HttpGet("https://my.sa.ucsb.edu/gold/Login.aspx");
 		HttpResponse getResponse = client.execute(get, context);
-		InputStreamReader inputStreamReader = new InputStreamReader(getResponse.getEntity().getContent());
-		StringBuilder builder = new StringBuilder();
-		char[] buffer = new char[1024];
-		while (inputStreamReader.read(buffer, 0, buffer.length) != -1) {
-			builder.append(buffer);
-		}
-		String loginSource = builder.toString();
-		
+		String loginSource = Utils.toString(getResponse);
 		
 		//Get viewstate argument from the source
 		int viewStateStart = loginSource.indexOf("<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"") + "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"".length();
@@ -77,18 +71,10 @@ public class Grawler {
 		
 		//Do the login and read the response to a string
 		HttpResponse response = client.execute(post, context);
-		StringBuilder responseBuilder = new StringBuilder();
-		InputStreamReader responseReader = new InputStreamReader(response.getEntity().getContent());
-		char[] readerBuffer = new char[1024];
-		int readLength;
-		while ((readLength = responseReader.read(readerBuffer, 0, readerBuffer.length)) != -1) {
-			responseBuilder.append(readerBuffer, 0, readLength);
-		}
-		String responseString = responseBuilder.toString();
-		
-		
-		//If we got expected response, then return the client
-		if (responseString.contains("<h2>Object moved to <a href=\"/gold/AlertMessage.aspx\">here</a>.</h2>")) {
+		String responseString = Utils.toString(response);
+
+        //If we got expected response, then return the client
+		if (responseString.contains("<h2>Object moved to <a href=")) {
 			CookieStore cookieStore = (CookieStore) context.getAttribute(ClientContext.COOKIE_STORE);
 			List<Cookie> cookies = cookieStore.getCookies();
 			GoldSession session = new GoldSession(cookies.toArray(new Cookie[cookies.size()]));

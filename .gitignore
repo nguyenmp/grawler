@@ -6,6 +6,7 @@
 *.ear
 *.html
 
+out/
 bin/
 dist/
 javadoc/

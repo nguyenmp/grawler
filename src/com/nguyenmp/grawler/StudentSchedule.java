@@ -2,6 +2,7 @@ package com.nguyenmp.grawler;
 
 import com.nguyenmp.grawler.utils.HttpClientFactory;
 import com.nguyenmp.grawler.utils.HttpContextFactory;
+import com.nguyenmp.grawler.utils.Utils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -18,7 +19,7 @@ public class StudentSchedule {
 		HttpGet get = new HttpGet("https://my.sa.ucsb.edu/gold/StudentSchedule.aspx");
 		HttpResponse response = client.execute(get, context);
 		
-		
+		String text = Utils.toString(response);
 	}
 	
 	
