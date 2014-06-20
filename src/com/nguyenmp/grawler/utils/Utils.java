@@ -28,4 +28,16 @@ public class Utils {
 		//Return the read characters as a string
 		return builder.toString();
 	}
+
+    public static String getViewState(String html) {
+        int viewStateStart = html.indexOf("<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"") + "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"".length();
+        int viewStateEnd = html.indexOf("\"" 	, viewStateStart);
+        return html.substring(viewStateStart, viewStateEnd);
+    }
+
+    public static String getEventValidation(String html) {
+        int eventValidationStart = html.indexOf("<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"") + "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"".length();
+        int eventValidationEnd = html.indexOf("\"", eventValidationStart);
+        return html.substring(eventValidationStart, eventValidationEnd);
+    }
 }

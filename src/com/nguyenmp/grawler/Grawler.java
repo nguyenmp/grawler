@@ -44,16 +44,10 @@ public class Grawler {
 		String loginSource = Utils.toString(getResponse);
 		
 		//Get viewstate argument from the source
-		int viewStateStart = loginSource.indexOf("<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"") + "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"".length();
-		int viewStateEnd = loginSource.indexOf("\"" 	, viewStateStart);
-		String viewState = loginSource.substring(viewStateStart, viewStateEnd);
-		
-		
+		String viewState = Utils.getViewState(loginSource);
+
 		//Get event validation argument from the source
-		int eventValidationStart = loginSource.indexOf("<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"") + "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"".length();
-		int eventValidationEnd = loginSource.indexOf("\"", eventValidationStart);
-		String eventValidation = loginSource.substring(eventValidationStart, eventValidationEnd);
-		
+		String eventValidation = Utils.getEventValidation(loginSource);
 		
 		//Create a new login request with params
 		HttpPost post = new HttpPost("https://my.sa.ucsb.edu/gold/Login.aspx");
