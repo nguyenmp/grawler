@@ -21,8 +21,8 @@ public class GradesTest {
     }
 
     @Test
-    public void testGet() throws Exception {
-        String result = Grades.get(session);
+    public void testGetAll() throws Exception {
+        String result = Grades.getAll(session);
 
         // Assert the result is not null
         assertNotNull(result);
@@ -36,13 +36,27 @@ public class GradesTest {
     }
 
     @Test
-    public void testNull() throws Exception {
-        String result = Grades.get(null);
+    public void testGetCurrent() throws Exception {
+        String result = Grades.getCurrent(session);
 
         // Assert the result is not null
         assertNotNull(result);
 
         // The String contains "ATt Unit"
+        assertNotEquals(result.indexOf("Att Unit"), -1);
+
+        // The String contains only one instance of "Att Unit"
+        assertEquals(result.indexOf("Att Unit"), result.lastIndexOf("Att Unit"));
+    }
+
+    @Test
+    public void testNull() throws Exception {
+        String result = Grades.getAll(null);
+
+        // Assert the result is not null
+        assertNotNull(result);
+
+        // The String does not contain "ATt Unit"
         assertEquals(result.indexOf("Att Unit"), -1);
     }
 }

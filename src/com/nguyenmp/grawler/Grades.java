@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Grades {
 
-    public static String get(GoldSession session) throws HttpClientFactory.SSHException, IOException {
+    public static String getAll(GoldSession session) throws HttpClientFactory.SSHException, IOException {
         // Initialize execution environment
         HttpClient client = HttpClientFactory.getClient();
         HttpContext context = HttpContextFactory.getContext(session);
@@ -46,4 +46,18 @@ public class Grades {
         String html = Utils.toString(response);
         return html;
     }
+
+    public static String getCurrent(GoldSession session) throws HttpClientFactory.SSHException, IOException {
+        // Initialize execution environment
+        HttpClient client = HttpClientFactory.getClient();
+        HttpContext context = HttpContextFactory.getContext(session);
+
+        // Get initialization html which generates the viewstate parameter
+        HttpGet init = new HttpGet("https://my.sa.ucsb.edu/gold/StudentGrades.aspx");
+        HttpResponse initResponse = client.execute(init, context);
+        String initHtml = Utils.toString(initResponse);
+        return initHtml;
+    }
+
+
 }
