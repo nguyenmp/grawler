@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class GradesTest {
@@ -22,41 +24,34 @@ public class GradesTest {
 
     @Test
     public void testGetAll() throws Exception {
-        String result = Grades.getAll(session);
+        List<Grades> result = Grades.getAll(session);
 
         // Assert the result is not null
         assertNotNull(result);
 
         // The String contains "ATt Unit"
-        assertNotEquals(result.indexOf("Att Unit"), -1);
-
-        // The String contains more than one instance of "Att Unit"
-        // This test case would probably fail on a new student
-        assertNotEquals(result.indexOf("Att Unit"), result.lastIndexOf("Att Unit"));
+        assertTrue(result.size() > 1);
     }
 
     @Test
     public void testGetCurrent() throws Exception {
-        String result = Grades.getCurrent(session);
+        List<Grades> result = Grades.getCurrent(session);
 
         // Assert the result is not null
         assertNotNull(result);
 
         // The String contains "ATt Unit"
-        assertNotEquals(result.indexOf("Att Unit"), -1);
-
-        // The String contains only one instance of "Att Unit"
-        assertEquals(result.indexOf("Att Unit"), result.lastIndexOf("Att Unit"));
+        assertEquals(result.size(), 1);
     }
 
     @Test
     public void testNull() throws Exception {
-        String result = Grades.getAll(null);
+        List<Grades> result = Grades.getAll(null);
 
         // Assert the result is not null
         assertNotNull(result);
 
         // The String does not contain "ATt Unit"
-        assertEquals(result.indexOf("Att Unit"), -1);
+        assertEquals(result.size(), 0);
     }
 }

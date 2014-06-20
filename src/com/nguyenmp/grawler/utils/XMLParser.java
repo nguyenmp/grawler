@@ -75,7 +75,10 @@ public class XMLParser {
 				Element element = (Element) child;
 				if (element.getAttribute(attributeName).equals(attributeValue)) {
 					return element;
-				}
+				} else {
+                    Element result = getChildFromAttribute(element, attributeName, attributeValue);
+                    if (result != null) return result;
+                }
 			}
 		}
 
@@ -110,22 +113,26 @@ public class XMLParser {
 	 * @throws javax.xml.transform.TransformerException when it is not possible to create a Transformer
 	 * instance or if an unrecoverable error occurs during the course of the transformation
 	 */
-	static String nodeToString(Node node) throws TransformerException {
-		// Set up the output transformer
-		TransformerFactory transfac = TransformerFactory.newInstance();
-		Transformer trans = transfac.newTransformer();
-		trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-		trans.setOutputProperty(OutputKeys.INDENT, "yes");
+	public static String nodeToString(Node node) throws ParsingException {
+        try {
+            // Set up the output transformer
+            TransformerFactory transfac = TransformerFactory.newInstance();
+            Transformer trans = transfac.newTransformer();
+            trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            trans.setOutputProperty(OutputKeys.INDENT, "yes");
 
-		// Print the DOM node
+            // Print the DOM node
 
-		StringWriter sw = new StringWriter();
-		StreamResult result = new StreamResult(sw);
-		DOMSource source = new DOMSource(node);
-		trans.transform(source, result);
+            StringWriter sw = new StringWriter();
+            StreamResult result = new StreamResult(sw);
+            DOMSource source = new DOMSource(node);
+            trans.transform(source, result);
 
-		//return as string
-		String xmlString = sw.toString();
-		return xmlString;
+            //return as string
+            String xmlString = sw.toString();
+            return xmlString;
+        } catch (TransformerException e) {
+            throw new ParsingException(e.getMessage());
+        }
 	}
 }

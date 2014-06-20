@@ -272,9 +272,6 @@ public class BasicFindCourses {
 			//Ignore if invalid
 			if (subjectAreaSubString.contains(">-Select-<")) continue;
 			
-			//Parse selected
-			boolean selected = subjectAreaSubString.contains("selected=\"selected\"");
-			
 			//Parse value
 			int valueStart = subjectAreaSubString.indexOf("value=\"") + "value=\"".length();
 			int valueEnd = subjectAreaSubString.indexOf("\"", valueStart);
@@ -285,7 +282,7 @@ public class BasicFindCourses {
 			int nameEnd = subjectAreaSubString.indexOf("<", nameStart);
 			String name = subjectAreaSubString.substring(nameStart, nameEnd);
 			
-			subjectAreas.add(new Params.SubjectArea(name, value, selected));
+			subjectAreas.add(new Params.SubjectArea(name, value));
 		}
 		
 		return subjectAreas.toArray(new Params.SubjectArea[subjectAreas.size()]);
@@ -313,11 +310,9 @@ public class BasicFindCourses {
 			
 			//Fetch the name
 			String name = quarterSubString.substring(quarterSubString.indexOf(">") + 1);
-			
-			boolean selected = quarterSubString.contains("selected=\"selected\"");
-			
+
 			//And add it to the list
-			quarters.add(new Params.Quarter(name, value, selected));
+			quarters.add(new Params.Quarter(name, value));
 		}
 		
 		
@@ -337,34 +332,30 @@ public class BasicFindCourses {
 		public static class Quarter {
 			public final String value;
 			public final String name;
-			public final boolean selected;
 
-			public Quarter(String name, String value, boolean selected) {
+			public Quarter(String name, String value) {
 				this.value = value;
 				this.name = name;
-				this.selected = selected;
 			}
 			
 			@Override
 			public String toString() {
-				return String.format("[name = %s], [value = %s], [selected = %s]", name, value, selected);
+				return String.format("[name = %s], [value = %s]", name, value);
 			}
 		}
 
 		public static class SubjectArea {
 			public final String value;
 			public final String name;
-			public final boolean selected;
-			
-			public SubjectArea(String name, String value, boolean selected) {
+
+			public SubjectArea(String name, String value) {
 				this.value = value;
-				this.selected = selected;
 				this.name = name;
 			}
 			
 			@Override
 			public String toString() {
-				return String.format("[name = %s], [value = %s], [selected = %s]", name, value, selected);
+				return String.format("[name = %s], [value = %s]", name, value);
 			}
 		}
 	}

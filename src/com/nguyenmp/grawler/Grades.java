@@ -1,8 +1,6 @@
 package com.nguyenmp.grawler;
 
-import com.nguyenmp.grawler.utils.HttpClientFactory;
-import com.nguyenmp.grawler.utils.HttpContextFactory;
-import com.nguyenmp.grawler.utils.Utils;
+import com.nguyenmp.grawler.utils.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -12,14 +10,21 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HttpContext;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Grades {
+    public String quarter;
+    public List<Grade> grades;
+    public Summary quarter_summary, cumulative_summary;
 
-    public static String getAll(GoldSession session) throws HttpClientFactory.SSHException, IOException {
+    public static List<Grades> getAll(GoldSession session) throws HttpClientFactory.SSHException, IOException, ParsingException {
         // Initialize execution environment
         HttpClient client = HttpClientFactory.getClient();
         HttpContext context = HttpContextFactory.getContext(session);
@@ -44,10 +49,11 @@ public class Grades {
         // Get response
         HttpResponse response = client.execute(post, context);
         String html = Utils.toString(response);
-        return html;
+
+        return parse(html);
     }
 
-    public static String getCurrent(GoldSession session) throws HttpClientFactory.SSHException, IOException {
+    public static List<Grades> getCurrent(GoldSession session) throws HttpClientFactory.SSHException, IOException, ParsingException {
         // Initialize execution environment
         HttpClient client = HttpClientFactory.getClient();
         HttpContext context = HttpContextFactory.getContext(session);
@@ -56,8 +62,42 @@ public class Grades {
         HttpGet init = new HttpGet("https://my.sa.ucsb.edu/gold/StudentGrades.aspx");
         HttpResponse initResponse = client.execute(init, context);
         String initHtml = Utils.toString(initResponse);
-        return initHtml;
+        return parse(initHtml);
     }
 
+    private static List<Grades> parse(String html) throws ParsingException {
+        String strippedHTML = html.replaceAll("_[0-9]+\" class=\"datatable\"", "\" class=\"datatable\"");
+        Element table = XMLParser.getDocumentFromString(strippedHTML).getElementById("pageContent_quarterGrid");
+        if (table == null) return new ArrayList<Grades>();
 
+        NodeList children = table.getChildNodes();
+
+        List<Grades> grades = new ArrayList<Grades>();
+        for (int i = 0; i < children.getLength(); i++) {
+            Node node = children.item(i);
+            Document nodeAsDoc = XMLParser.getDocumentFromString(XMLParser.nodeToString(node));
+            Element quarterSpan = XMLParser.getChildFromAttribute((Element) node, "class", "quarter");
+            String quarter = quarterSpan.getTextContent();
+            List<Grade> listOfGrades = parseGrades(nodeAsDoc.getElementById("pageContent_quarterGrid_gradesByQuarter"));
+
+            Grades quarterGrades = new Grades();
+            quarterGrades.grades = listOfGrades;
+            quarterGrades.quarter = quarter;
+            grades.add(quarterGrades);
+        }
+
+        return grades;
+    }
+
+    private static List<Grade> parseGrades(Element grades) {
+        return null;
+    }
+
+    public static class Grade {
+        public String course, grade, enrl_cd, att_unit, comp_unit, gpa_unit, points, additional_info;
+    }
+
+    public static class Summary {
+        public float gpa, att_unit, comp_unit, gpa_unit, points, additional_info;
+    }
 }
